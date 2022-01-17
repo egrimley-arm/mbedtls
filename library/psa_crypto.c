@@ -5272,6 +5272,8 @@ psa_status_t psa_crypto_init( void )
 {
     psa_status_t status;
 
+    return 1;//xx
+
     /* Double initialization is explicitly allowed. */
     if( global_data.initialized != 0 )
         return( PSA_SUCCESS );

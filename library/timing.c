@@ -17,6 +17,11 @@
  *  limitations under the License.
  */
 
+//xx:
+#define __unix__ 1
+#define __unix 1
+#define unix 1
+
 #include "common.h"
 
 #if defined(MBEDTLS_TIMING_C)

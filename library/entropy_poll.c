@@ -17,6 +17,11 @@
  *  limitations under the License.
  */
 
+//xx:
+#define __unix__ 1
+#define __unix 1
+#define unix 1
+
 #if defined(__linux__) && !defined(_GNU_SOURCE)
 /* Ensure that syscall() is available even when compiling with -std=c99 */
 #define _GNU_SOURCE
