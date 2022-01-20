@@ -158,6 +158,9 @@ static int sysctl_arnd_wrapper( unsigned char *buf, size_t buflen )
 
 #include <stdio.h>
 
+// This prototype would normally come from #include <sys/random.h>:
+ssize_t getrandom(void *buf, size_t buflen, unsigned int flags);
+
 int mbedtls_platform_entropy_poll( void *data,
                            unsigned char *output, size_t len, size_t *olen )
 {
@@ -165,6 +168,16 @@ int mbedtls_platform_entropy_poll( void *data,
     size_t read_len;
     int ret = MBEDTLS_ERR_ERROR_CORRUPTION_DETECTED;
     ((void) data);
+
+    //xx Just use the function from the C library for now:
+    ret = getrandom( output, len, 0 );
+    if( ret >= 0 )
+    {
+        *olen = ret;
+        return( 0 );
+    }
+    else
+        return( MBEDTLS_ERR_ENTROPY_SOURCE_FAILED );
 
 #if defined(HAVE_GETRANDOM)
     ret = getrandom_wrapper( output, len, 0 );
